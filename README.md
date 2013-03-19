@@ -9,6 +9,15 @@ Cobbled together by Laurence A. Lee (rubyjedi@gmail.com) from the following orig
 
 **This library is intended to be a lightweight alternative to [AJSON](https://github.com/interactive-matter/aJson.git), specifically for memory-constrained products like the [DigiSpark](http://digistump.com/product.php?id=1) that run on the ATTINY85 processor.**
 
+## Limitations ##
+**NESTED STRUCTURES NOT SUPPORTED (YET)**
+
+Currently, this library only handles Key-Value pairs at the Top Level of the JSON String. 
+
+This is not a shortcoming of the Jsmn JSON Parsing library used under the hood - it's a design-decision of how I trivially stitched together Jsmn and map_lib to keep the memory footprint as small as possible.
+
+If you feel the need to fork and enhance, I would suggest putting such enhancements within an `#ifdef` block (say, `#ifdef JSON_ALLOW_NESTED`) to allow end-users to have finer control over what enhancements they may or may not need.
+
 ## Usage Example ##
 ``` java
 #include <json_arduino.h>
