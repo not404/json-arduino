@@ -38,6 +38,8 @@ struct map_t *map_create() {
    m->name=NULL;
    m->value=NULL;
    m->nxt=NULL;
+
+   return m;
 }
 
 
