@@ -53,7 +53,7 @@ void map_set(struct map_t *m,char *name,char *value) {
       return;
    }
    for(map=m;;map=map->nxt) {
-      if(!stricmp(name,map->name)) {
+      if(!strcmp(name,map->name)) {
          if(map->value!=NULL) {
             free(map->value);
             map->value=(char *)malloc(strlen(value)+1);
@@ -77,7 +77,7 @@ void map_set(struct map_t *m,char *name,char *value) {
 char *map_get(struct map_t *m,char *name) {
    struct map_t *map;
    for(map=m;map!=NULL;map=map->nxt) {
-      if(!stricmp(name,map->name)) {
+      if(!strcmp(name,map->name)) {
          return map->value;
       }
    }
