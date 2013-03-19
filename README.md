@@ -39,7 +39,8 @@ void loop() {
   if (toggle>0){
     strcpy(json_string, "{command:hello, to:world}");
   } else {
-    strcpy(json_string, "{\\"command\\":\\"goodbye\\", \\"say_to\\":\\"World\\"}"); // Demonstrates quotation-marks around tokens are handled by Jsmn OK.
+    // Demonstrates quotation-marks around tokens are handled by Jsmn OK.
+    strcpy(json_string, "{\"command\":\"goodbye\", \"say_to\":\"World\"}"); 
   }
   
   json_hash = map_create(); // Create the Hashmap
