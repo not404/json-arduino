@@ -28,7 +28,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 #include "map_lib.h"
 
