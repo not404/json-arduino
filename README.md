@@ -7,6 +7,8 @@ Cobbled together by Laurence A. Lee (rubyjedi@gmail.com) from the following orig
 * jsmn-example - State-Machine JSON Parser Example for Jsmn (https://github.com/alisdair/jsmn-example)
 * map_lib      - Associative Array Library (http://www.mailsend-online.com/blog/a-simple-associative-array-library-in-c.html)
 
+**This library is intended to be a lightweight alternative to [AJSON](https://github.com/interactive-matter/aJson.git), specifically for memory-constrained products like the [DigiSpark](http://digistump.com/product.php?id=1) that run on the ATTINY85 processor.**
+
 ## Usage Example ##
 ``` java
 #include <json_arduino.h>
