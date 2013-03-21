@@ -3,9 +3,8 @@
  * Cobbled together by Laurence A. Lee (rubyjedi@gmail.com)
  *   from the following original sources:
  *
- * jsmn         - JSON Parser (http://zserge.com/jsmn.html)
- * jsmn-example - State-Machine JSON Parser Example for Jsmn (https://github.com/alisdair/jsmn-example)
- * map_lib      - Associative Array Library (http://www.mailsend-online.com/blog/a-simple-associative-array-library-in-c.html)
+ * jsmn         - JSON Lexical Scanner and Tokenizer (http://zserge.com/jsmn.html)
+ * jsmn-example - JSON Parser Example for Jsmn (https://github.com/alisdair/jsmn-example)
  * 
  */
 
@@ -51,6 +50,7 @@ char* json_get_value(token_list_t *token_list, char *key) {
 }
 
 /* LALEE: json_token_tostr() was derived from git://github.com/alisdair/jsmn-example.git */
+
 char * json_token_tostr(char *js, jsmntok_t *t) {
 	js[t->end] = '\0';
 	return js + t->start;
@@ -68,13 +68,16 @@ int json_to_token_list(char *json_string, token_list_t *token_list){
 
 	jsmn_init(&parser);
 
-	/* LALEE: Run the Jsmn parser against the JSON String. No elaborate error-checking here. */
+	/* LALEE: Run the Jsmn lexical scanner against the JSON String. We're memory-constrained, so no elaborate error-checking here. */
 	int parse_status = jsmn_parse(&parser, json_string, tokens, token_list->length);
 	if (parse_status != JSMN_SUCCESS) {
 		return parse_status; // TODO: Add a mechanism to log a message . . .
 	}
 
-	/* LALEE: Further break down the parsed Tokens into JSMN_KEYs and JSMN_VALUEs, for later retrieval by json_get_value() */
+	/* LALEE: Very minimalist Parser to refine the Scanned Tokens into JSMN_KEYs and JSMN_VALUEs. */
+	/* This will allow us to retrieve "Key/Value Pairs" via json_get_value() */
+	/* Token 0 is a JSMN_OBJECT representing the entire JSON structure. */
+	/* Since we expect Key/Value Pairs in incoming JSON, the following two-state parser (starting at Token 1, not 0) is sufficient. */
 	for (int i = 1; i < token_list->length ; i++) {
 		jsmntok_t *t = &tokens[i];
 

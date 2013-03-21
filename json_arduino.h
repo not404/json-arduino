@@ -7,8 +7,8 @@
 
 /* LALEE: Declare a TOKENS container with a little extra to manage the LENGTH of the Tokens */
 typedef struct {
-	int length;
-	int count; // LALEE: This is the number of tokens ACTUALLY found by the parser.
+	int length; // LALEE: This is the maximum number of tokens available to Jsmn.
+	int count;  // LALEE: This is the number of tokens ACTUALLY found by Jsmn.
 	jsmntok_t *tokens;
 } token_list_t;
 
