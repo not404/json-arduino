@@ -14,6 +14,7 @@ static jsmntok_t *jsmn_alloc_token(jsmn_parser *parser,
 	tok = &tokens[parser->toknext++];
 	tok->start = tok->end = -1;
 	tok->size = 0;
+	tok->string = NULL; // LALEE added this.
 #ifdef JSMN_PARENT_LINKS
 	tok->parent = -1;
 #endif
@@ -29,6 +30,7 @@ static void jsmn_fill_token(jsmntok_t *token, jsmntype_t type,
 	token->start = start;
 	token->end = end;
 	token->size = 0;
+	token->string = NULL; // LALEE added this.
 }
 
 /**

@@ -1,10 +1,20 @@
 #include <stdlib.h>
+#include <string.h>
 #include "utility/jsmn.h"
-#include "utility/map_lib.h"
 
 #ifndef __JSON_ARDUINO_H_
 #define __JSON_ARDUINO_H_
 
-int json_to_hash(char* json_string, struct map_t* json_hash);
+/* LALEE: Declare a TOKENS container with a little extra to manage the LENGTH of the Tokens */
+typedef struct {
+	int length;
+	int count; // LALEE: This is the number of tokens ACTUALLY found by the parser.
+	jsmntok_t *tokens;
+} token_list_t;
+
+token_list_t* create_token_list(int length);
+void release_token_list(token_list_t *token_list);
+char* json_get_value(token_list_t *token_list, char *key);
+int json_to_token_list(char *json_string, token_list_t *token_list);
 
 #endif
