@@ -81,7 +81,7 @@ int json_to_token_list(char *json_string, token_list_t *token_list){
 	/* This will allow us to retrieve "Key/Value Pairs" via json_get_value() */
 	/* Token 0 is a JSMN_OBJECT representing the entire JSON structure. */
 	/* Since we expect Key/Value Pairs in incoming JSON, the following two-state parser (starting at Token 1, not 0) is sufficient. */
-	for (int i = 1; i < token_list->length ; i++) {
+	for (int i = 1; i < parser.toknext ; i++) {
 		jsmntok_t *t = &tokens[i];
 
 		switch (state) {
