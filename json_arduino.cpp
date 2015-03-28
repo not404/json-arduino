@@ -5,9 +5,9 @@
  *
  * jsmn         - JSON Lexical Scanner and Tokenizer (http://zserge.com/jsmn.html)
  * jsmn-example - JSON Parser Example for Jsmn (https://github.com/alisdair/jsmn-example)
- * 
  */
 
+#include <stdlib.h>     /* for calloc() */
 #include "json_arduino.h"
 
 typedef enum {
@@ -18,8 +18,8 @@ typedef enum {
 /* LALEE: Allow callers to create a Token-List structure to hold the parsed JSON Tokens */
 
 token_list_t* create_token_list(int length){
-	token_list_t *token_list = (token_list_t*)malloc(1*sizeof(token_list_t) );
-	token_list->tokens = (jsmntok_t*)malloc(length*sizeof(jsmntok_t));
+	token_list_t *token_list = (token_list_t*)calloc(1,sizeof(token_list_t) );
+	token_list->tokens = (jsmntok_t*)calloc(length,sizeof(jsmntok_t));
 	token_list->length = length;
 	token_list->count = 0;
 
@@ -71,7 +71,8 @@ int json_to_token_list(char *json_string, token_list_t *token_list){
 	jsmn_init(&parser);
 
 	/* LALEE: Run the Jsmn lexical scanner against the JSON String. We're memory-constrained, so no elaborate error-checking here. */
-	int parse_status = jsmn_parse(&parser, json_string, tokens, token_list->length);
+	int parse_status = jsmn_parse(&parser, json_string, strlen(json_string), tokens, token_list->length);
+
 	if (parse_status != JSMN_SUCCESS) {
 		return parse_status; // TODO: Add a mechanism to log a message . . .
 	}
